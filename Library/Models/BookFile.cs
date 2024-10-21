@@ -1,20 +1,16 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Library.Models;
 
 public class BookFile
 {
-    public int BookFileId { get; set; }
-    
-    [Required]
+    public int Id { get; set; }
     public string FileName { get; set; }
-    
     public string Description { get; set; }
-    
-    [Required]
     public string FilePath { get; set; }
     
-    [Required]
     public int BookId { get; set; }
+    [ForeignKey("BookId")]
     public Book Book { get; set; }
 }

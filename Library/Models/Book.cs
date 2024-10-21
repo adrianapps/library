@@ -5,30 +5,19 @@ namespace Library.Models;
 
 public class Book
 {
-    public int BookId { get; set; }
-    
-    [Required]
-    [StringLength(50, ErrorMessage = "Title cannot be longer than 50 characters")]
+    public int Id { get; set; }
     public string Title { get; set; }
-    
-    [Required]
-    [StringLength(13, ErrorMessage = "ISBN cannot be longer than 13 characters")]
     public string ISBN { get; set; }
-    
     public string Description { get; set; }
-    
     [DataType(DataType.Date)] 
     public DateTime ReleaseDate { get; set; }
 
     public int CategoryId { get; set; }
-    public Category Category { get; set; }
-
-    public ICollection<Tag> Tags { get; set; } = new List<Tag>();
+    [ForeignKey("CategoryId")]
+    public Category? Category { get; set; }
+    public ICollection<Tag>? Tags { get; set; }
     
-    public ICollection<BookFile> Files { get; set; } = new List<BookFile>();
-
-    [Required]
+    public ICollection<BookFile>? Files { get; set; } 
     public int Stock { get; set; }
-    
-    public ICollection<Borrow> Borrows { get; set; } = new List<Borrow>();
+    public ICollection<Borrow>? Borrows { get; set; }
 }
