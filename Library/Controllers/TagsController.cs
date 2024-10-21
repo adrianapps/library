@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -10,22 +10,22 @@ using Library.Models;
 
 namespace Library.Controllers
 {
-    public class CategoryController : Controller
+    public class TagsController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public CategoryController(ApplicationDbContext context)
+        public TagsController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: Category
+        // GET: Tags
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Categories.ToListAsync());
+            return View(await _context.Tags.ToListAsync());
         }
 
-        // GET: Category/Details/5
+        // GET: Tags/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -33,39 +33,39 @@ namespace Library.Controllers
                 return NotFound();
             }
 
-            var category = await _context.Categories
+            var tag = await _context.Tags
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (category == null)
+            if (tag == null)
             {
                 return NotFound();
             }
 
-            return View(category);
+            return View(tag);
         }
 
-        // GET: Category/Create
+        // GET: Tags/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Category/Create
+        // POST: Tags/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name")] Category category)
+        public async Task<IActionResult> Create([Bind("Id,Name")] Tag tag)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(category);
+                _context.Add(tag);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(category);
+            return View(tag);
         }
 
-        // GET: Category/Edit/5
+        // GET: Tags/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -73,22 +73,22 @@ namespace Library.Controllers
                 return NotFound();
             }
 
-            var category = await _context.Categories.FindAsync(id);
-            if (category == null)
+            var tag = await _context.Tags.FindAsync(id);
+            if (tag == null)
             {
                 return NotFound();
             }
-            return View(category);
+            return View(tag);
         }
 
-        // POST: Category/Edit/5
+        // POST: Tags/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name")] Category category)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name")] Tag tag)
         {
-            if (id != category.Id)
+            if (id != tag.Id)
             {
                 return NotFound();
             }
@@ -97,12 +97,12 @@ namespace Library.Controllers
             {
                 try
                 {
-                    _context.Update(category);
+                    _context.Update(tag);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!CategoryExists(category.Id))
+                    if (!TagExists(tag.Id))
                     {
                         return NotFound();
                     }
@@ -113,10 +113,10 @@ namespace Library.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(category);
+            return View(tag);
         }
 
-        // GET: Category/Delete/5
+        // GET: Tags/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -124,34 +124,34 @@ namespace Library.Controllers
                 return NotFound();
             }
 
-            var category = await _context.Categories
+            var tag = await _context.Tags
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (category == null)
+            if (tag == null)
             {
                 return NotFound();
             }
 
-            return View(category);
+            return View(tag);
         }
 
-        // POST: Category/Delete/5
+        // POST: Tags/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var category = await _context.Categories.FindAsync(id);
-            if (category != null)
+            var tag = await _context.Tags.FindAsync(id);
+            if (tag != null)
             {
-                _context.Categories.Remove(category);
+                _context.Tags.Remove(tag);
             }
 
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool CategoryExists(int id)
+        private bool TagExists(int id)
         {
-            return _context.Categories.Any(e => e.Id == id);
+            return _context.Tags.Any(e => e.Id == id);
         }
     }
 }
